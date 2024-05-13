@@ -1,3 +1,6 @@
+
+exit() # BELOW CODE DO NOT WORK, SEE 'lib2.py'
+
 class Animal:
 
     def __init__(self, name: str, species: str, age: float, height: float, width: float, preferred_habitat: str) -> None:
