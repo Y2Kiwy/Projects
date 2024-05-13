@@ -1,12 +1,3 @@
-class Zoo:
-
-    def __init__(self, name: str, address: str) -> None:
-
-        self.name = name
-        self.address = address
-
-
-
 class Animal:
 
     def __init__(self, name: str, species: str, age: float, height: float, width: float, preferred_habitat: str) -> None:
@@ -16,7 +7,7 @@ class Animal:
         self.age: float = age
         self.height: float = height
         self.width: float = width
-        self.preferred_habitat: list[str] = preferred_habitat
+        self.preferred_habitat: str = preferred_habitat
 
         self.health: int = round(100 * (1 / age), 3)
 
@@ -65,6 +56,24 @@ class Fence:
         free_area: float = self.area - occupied_area
 
         return free_area
+    
+    def get_occupied_area(self) -> float:
+        '''
+        Calculate the occupied area in the fence.
+
+        Args:
+            - None
+        
+        Return:
+            - occupied_area (float): The occupied area in the fence.
+        '''
+        
+        occupied_area: float = 0
+
+        for animal in self.animals:
+            occupied_area += animal.get_area()
+
+        return occupied_area
 
 
 
@@ -109,11 +118,11 @@ class ZooKeeper:
         if animal_area > fence.get_free_area():
             raise RuntimeError(f"Insufficent area ({fence.get_free_area()}) in the fence to add animal {animal.name} (area: {animal.width * animal.height})")
         
-        elif fence.habitat in animal.preferred_habitat:
-            raise RuntimeError(f"Wrong fence habitat ({fence.habitat}) for animal {animal.name} (habitats: {animal.preferred_habitat})")
+        elif fence.habitat.lower() == animal.preferred_habitat.lower():
+            raise RuntimeError(f"Wrong fence habitat ({fence.habitat}) for animal {animal.name} (habitat: {animal.preferred_habitat})")
         
         else:
-            return bool
+            return True
 
 
     def remove_animal(self, animal: Animal, fence: Fence) -> None:
@@ -171,3 +180,76 @@ class ZooKeeper:
         
         else:
             return True
+        
+    
+    def  clean(self, fence: Fence) -> float:
+        '''
+        Cleans the fence and returns the cleanliness ratio.
+
+        Args:
+            - fence (Fence): The fence to be cleaned.
+
+        Returns:
+            - cleanliness_ratio (float): The ratio of occupied area to free area in the fence.
+        '''
+        if fence.area - fence.get_free_area() == 0:
+            return float(fence.area)
+        else:
+            return float(fence.get_occupied_area() / fence.get_free_area())
+
+
+
+class Zoo:
+
+    def __init__(self, name: str, address: str) -> None:
+        self.name = name
+        self.address = address
+        self.zookeepers = []
+        self.fences = []
+
+    def describe_zoo(self) -> None:
+        print("Guardians:\n")
+        for keeper in self.zookeepers:
+            print(f"\tZooKeeper(name={keeper.name}, surname={keeper.surname}, id={keeper.id})\n")
+
+        print("Fences:\n")
+        for fence in self.fences:
+            print(f"\tFence(area={fence.area}, temperature={fence.temperature}, habitat={fence.habitat})")
+            if fence.animals:
+                print("\nwith animals:\n")
+                for animal in fence.animals:
+                    print(f"\tAnimal(name={animal.name}, species={animal.species}, age={animal.age})\n")
+            else:
+                print("No animals in this fence.\n")
+            print("\t##############################\n")
+
+
+
+# Creazione degli animali
+scoiattolo = Animal("Scoiattolo", "Blabla", 25, 10, 5, "Bosco")
+lupo = Animal("Lupo", "Lupus", 14, 15, 8, "Forestale")
+
+# Creazione dei recinti
+recinto1 = Fence(100, 25, "Continentale")
+recinto2 = Fence(150, 20, "Bosco")
+
+# Creazione del guardiano dello zoo
+guardiano = ZooKeeper("Lorenzo", "Maggi", 1234)
+
+# Aggiunta degli animali ai recinti
+guardiano.add_animal(scoiattolo, recinto1)
+guardiano.add_animal(lupo, recinto2)
+
+# Creazione dello zoo
+zoo = Zoo("Zoo", "Indirizzo")
+zoo.zookeepers.append(guardiano)
+zoo.fences.extend([recinto1, recinto2])
+
+# Tentativo di nutrire un animale in un recinto senza spazio
+try:
+    guardiano.feed(scoiattolo, recinto1)
+except RuntimeError as e:
+    print(f"Errore: {e}")
+
+# Test della funzione describe_zoo dopo l'errore
+zoo.describe_zoo()
