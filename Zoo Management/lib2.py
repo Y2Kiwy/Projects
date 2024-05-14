@@ -108,7 +108,33 @@ class ZooKeeper:
             except Exception as e:
                 print(f"Something went wrong while cleaning fence -> {e}")
 
+
+
+class Zoo:
+    def __init__(self, name: str, address: str, zookeepers: list[ZooKeeper], fences: list[Fence]) -> None:
+        self.name: str = name
+        self.address: str = address
+        self.guardians = zookeepers
+        self.fences = fences
+
+    def describe_zoo(self):
+        print("\nGuardians:\n")
+        for guardian in self.guardians:
+            print(f"ZooKeeper(name={guardian.name}, surname={guardian.surname}, id={guardian.id})")
+        print("\nFences:\n")
+        for fence in self.fences:
+            print(f"Fence(area={fence.area}, temperature={fence.temperature}, habitat={fence.habitat})")
+            print("\nwith animals:\n")
+            if fence.animals:
+                for animal in fence.animals:
+                    print(f"Animal(name={animal.name}, species={animal.species}, age={animal.age})")
+            else:
+                print("No animals in this fence.")
+            print("\n" + "#" * 30 + "\n")
+        
 # Tests ----------------------------------------------------------------------
+
+
 
 try:
     a1: Animal = Animal(name="Leone", species="Felino", age=7, height=30, width=50, preferred_habitat="Savana")  # It works
@@ -171,3 +197,8 @@ try:
 except Exception as e:
     print("Error cleaning fence f2:", e)
 
+try:
+    zoo1: Zoo = Zoo(name="Bioparco di Roma", address="Piazzale del, V.le del Giardino Zoologico, 1, 00197 Roma RM", zookeepers=[z1], fences=[f1, f2])
+    zoo1.describe_zoo()                                                                                          # It seems to works
+except Exception as e:
+    print("Error cleaning fence f2:", e)
