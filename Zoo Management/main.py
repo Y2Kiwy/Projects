@@ -13,7 +13,7 @@ except Exception as e:
     print("Error creating animal a2:", e)
 
 try:
-    f1: Fence = Fence(area=2000, temperature=24, habitat="Savana")                                               # It works
+    f1: Fence = Fence(area=1550, temperature=24, habitat="Savana")                                               # It works
 except Exception as e:
     print("Error creating fence f1:", e)
 
