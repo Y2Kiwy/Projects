@@ -98,9 +98,12 @@ canvas = Canvas(
     highlightthickness = 0,
     relief = "ridge"
 )
+canvas.place(
+    x = 0,
+    y = 0
+)
 
 # Blu rectangle on the top screen
-canvas.place(x = 0, y = 0)
 canvas.create_rectangle(
     0.0,
     0.0,
@@ -439,11 +442,13 @@ settings_button.place(
 def toggle_settings_panel():
 
     if settings_canvas.winfo_ismapped():
-        settings_canvas.place_forget()
+        settings_canvas.place_forget()                                        # Make the 'settings_canva' window disappear
+        home_button.place_forget()                                            # Make the 'home_button' disappear
         print("Settings panel hidden")
 
     else:
-        settings_canvas.place(x = 0, y = 0)
+        settings_canvas.place(x = 0, y = 0)                                   # Make the 'settings_canva' window appear
+        home_button.place(x=616.0, y=456.0, width=16.0, height=16.0)          # Make the 'home_button' appear
         print("Settings panel shown")
 
 # Create new canva over main canva
@@ -502,22 +507,24 @@ settings_canvas.create_text(
 
 
 
-# 'settings' background rectangle, button
-settings_bg_rect_obj = PhotoImage(
-    file=asset_path_build("settings_button.png"))
-settings_button = Button(
-    image=settings_bg_rect_obj,
+# 'home' background rectangle, button
+home_bg_rect_obj = PhotoImage(
+    file=asset_path_build("home_button.png"))
+home_button = Button(
+    image=home_bg_rect_obj,
     borderwidth=0,
     highlightthickness=0,
     command=lambda: toggle_settings_panel(),
     relief="flat"
 )
-settings_button.place(
+home_button.place(
     x=616.0,
     y=456.0,
     width=16.0,
     height=16.0
 )
+
+home_button.place_forget() # Prevent 'home_button' from appear when 'settings_canva' is not active
 
 # End of settings GUI ---------------------------------------------------------
 
