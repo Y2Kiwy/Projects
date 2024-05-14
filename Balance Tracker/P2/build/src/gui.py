@@ -110,7 +110,8 @@ canvas.create_rectangle(
     640.0,
     96.0,
     fill="#00317B",
-    outline="")
+    outline=""
+)
 
 # Title of the app in the top-left corner
 canvas.create_text(
