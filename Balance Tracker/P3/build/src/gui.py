@@ -156,7 +156,7 @@ expense_bg_rect_canvas = canvas.create_image(
 logo_obj = PhotoImage(
     file=asset_path_build("logo.png"))
 logo_canvas = canvas.create_image(
-    590.0,
+    588.0,
     48.0,
     image=logo_obj
 )
@@ -417,6 +417,23 @@ submit_button.place(
     height=48.0
 )
 
+# 'transactions' background rectangle, button
+transactions_bg_rect_obj = PhotoImage(
+    file=asset_path_build("transactions_button.png"))
+transactions_button = Button(
+    image=transactions_bg_rect_obj,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("transactions_button clicked"),
+    relief="flat"
+)
+transactions_button.place(
+    x=8.0,
+    y=456.0,
+    width=16.0,
+    height=16.0
+)
+
 # 'settings' background rectangle, button
 settings_bg_rect_obj = PhotoImage(
     file=asset_path_build("settings_button.png"))
@@ -488,7 +505,7 @@ settings_canvas.create_text(
 settings_logo_obj = PhotoImage(
     file=asset_path_build("logo.png"))
 settings_logo_canvas = settings_canvas.create_image(
-    590.0,
+    588.0,
     48.0,
     image=settings_logo_obj
 )
