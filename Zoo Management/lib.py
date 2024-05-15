@@ -15,6 +15,12 @@ class Animal:
 
 
     def get_area(self) -> float:
+        '''
+        Calculate the area of the animal.
+
+        Returns:
+            - animal_area (float): The area of the animal.
+        '''
         return float(self.width * self.height)
 
 
@@ -31,12 +37,19 @@ class Fence:
 
 
     def get_areas(self) -> tuple[float, float]:
+        '''
+        Calculate the occupied and free areas in the fence.
 
+        Returns:
+            - tuple[float, float]: A tuple containing the occupied area and the free area in the fence.
+        '''
         occupied_area: float = 0
 
+        # Calculate the total occupied area by summing up the areas of all animals in the fence
         for animal in self.animals:
             occupied_area += animal.get_area()
 
+        # Calculate the free area by subtracting the occupied area from the total area of the fence
         free_area: float = self.area - occupied_area
 
         return (float(occupied_area), float(free_area))
@@ -52,13 +65,24 @@ class ZooKeeper:
         self.id: int = id
 
 
+    
     def add_animal(self, animal: Animal, fence: Fence) -> None:
+        '''
+        Add a specific animal to a specific fence.
+
+        Args:
+            - animal (Animal): The Animal instance to add into the fence.
+            - fence (Fence): The Fence instance where to add the animal instance.
+
+        Returns:
+            - None
+        '''
 
         if animal.preferred_habitat != fence.habitat:
             raise RuntimeError(f"'{animal.name}' cannot live in fence habitat: '{fence.habitat}'")
         
         elif animal.get_area() > fence.get_areas()[1]:
-            raise RuntimeError(f"'{animal.name}' with area of '{animal.get_area():,.2f}' do not fit in fence free area: '{fence.get_areas()[1]:,.2f}'")
+            raise RuntimeError(f"'{animal.name}' with area of '{animal.get_area():,.2f}' does not fit in fence free area: '{fence.get_areas()[1]:,.2f}'")
         
         else:
             try:
@@ -70,9 +94,19 @@ class ZooKeeper:
 
 
     def remove_animal(self, animal: Animal, fence: Fence) -> None:
+        '''
+        Remove a specific animal from the animals list in the fence.
+
+        Args:
+            - animal (Animal): The Animal instance to remove from the animals list.
+            - fence (Fence): The Fence instance where to remove the animal instance.
+
+        Returns:
+            - None
+        '''
 
         if not animal in fence.animals:
-            raise RuntimeError(f"'{animal.name}' do not found in fence")
+            raise RuntimeError(f"'{animal.name}' not found in fence")
         
         else:
             try:
@@ -84,17 +118,22 @@ class ZooKeeper:
 
     
     def feed(self, animal: Animal) -> None:
+        '''
+        Feed an animal if possible.
+
+        Args:
+            - animal (Animal): The Animal instance to feed.
+
+        Returns:
+            - None
+        '''
         
-        base_anima_area: float = animal.get_area()
+        base_animal_area: float = animal.get_area()
         feeded_animal_area: float = (animal.width + (animal.width * 0.02)) * (animal.height + (animal.height * 0.02))
-        area_incremment: float = feeded_animal_area - base_anima_area
+        area_increment: float = feeded_animal_area - base_animal_area
 
-        print(f"Fence animal occupied area {animal.fence.get_areas()[0]}")
-
-        print(f"Fence animal free area {animal.fence.get_areas()[1]}")
-
-        if area_incremment > animal.fence.get_areas()[1]:
-            raise RuntimeError(f"Cannot feed {animal.name} (feeded area increment: {area_incremment:,.2f}) it would exceed the remaining available area (free area: {animal.fence.get_areas()[1]:,.2f})")
+        if area_increment > animal.fence.get_areas()[1]:
+            raise RuntimeError(f"Cannot feed {animal.name} (feeded area increment: {area_increment:,.2f}), it would exceed the remaining available area (free area: {animal.fence.get_areas()[1]:,.2f})")
         
         else:
             try:
@@ -107,6 +146,15 @@ class ZooKeeper:
 
 
     def clean(self, fence: Fence) -> float:
+        '''
+        Calculate the cleanliness level of the fence.
+
+        Args:
+            - fence (Fence): The Fence instance to clean.
+
+        Returns:
+            - float: The cleanliness level of the fence.
+        '''
 
         if fence.get_areas()[1] == 0:
             return 0
@@ -127,6 +175,12 @@ class Zoo:
         self.fences = fences
 
     def describe_zoo(self):
+        '''
+        Print the description of the zoo, including guardians and fences with animals.
+
+        Returns:
+            - None
+        '''
         print("\nGuardians:\n")
         for guardian in self.guardians:
             print(f"ZooKeeper(name={guardian.name}, surname={guardian.surname}, id={guardian.id})")
