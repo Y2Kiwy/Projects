@@ -22,8 +22,4 @@ There are three working secret code that have to be writed in the 'name' texbox 
 
 
 **TO DO**
-1 - Create pdf in a more accesible location
-2 - Exclude first db row of 'transactions_history' table when creating pdf
-3 - Fix cannot use colon for decimals when settings new balance
-
-4 - Make possible to choose location where to create the file
+1 - Complete the settings page
