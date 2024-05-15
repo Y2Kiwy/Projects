@@ -1,4 +1,4 @@
-from lib1 import *
+from lib import *
 import time
 
 tortoise_position: int = 1
