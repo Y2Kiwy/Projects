@@ -35,7 +35,7 @@ except Exception as e:
 
 try:
     z1.feed(a1)
-    print(f"Feeded {a1.name}") 
+    print(f"Feeded {a1.name} new health: {a1.health}") 
 except Exception as e:
     print("Error feeding animal a1:", e)
 
@@ -59,7 +59,7 @@ except Exception as e:
 
 try:
     z1.feed(a2)
-    print(f"Feeded {a2.name}") 
+    print(f"Feeded {a2.name}new health: {a2.health}") 
 except Exception as e:
     print("Error feeding animal a1:", e)
 

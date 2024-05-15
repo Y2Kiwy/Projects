@@ -98,8 +98,9 @@ class ZooKeeper:
         
         else:
             try:
-                animal.width *= animal.width * 0.02
-                animal.height *= animal.height * 0.02
+                animal.width += animal.width * 0.02
+                animal.height += animal.height * 0.02
+                animal.health += round(animal.health * 0.01, 3)
 
             except Exception as e:
                 print(f"Something went wrong while feeding '{animal.name}' -> {e}")
