@@ -11,6 +11,8 @@ class Animal:
 
         self.health: float = round(100 * (1 / age), 3)
 
+        self.fence: str = None
+
 
     def get_area(self) -> float:
         return float(self.width * self.height)
@@ -61,6 +63,7 @@ class ZooKeeper:
         else:
             try:
                 fence.animals.append(animal)
+                animal.fence = fence
 
             except Exception as e:
                 print(f"Something went wrong while adding '{animal.name}' to fence -> {e}")
@@ -74,19 +77,24 @@ class ZooKeeper:
         else:
             try:
                 fence.animals.remove(animal)
+                animal.fence = None
 
             except Exception as e:
                 print(f"Something went wrong while deleting '{animal.name}' from fence -> {e}")
 
     
-    def feed(self, animal: Animal, fence: Fence) -> None:
+    def feed(self, animal: Animal) -> None:
         
         base_anima_area: float = animal.get_area()
         feeded_animal_area: float = (animal.width + (animal.width * 0.02)) * (animal.height + (animal.height * 0.02))
         area_incremment: float = feeded_animal_area - base_anima_area
 
-        if area_incremment > fence.get_areas()[1]:
-            raise RuntimeError(f"Cannot feed {animal.name} (feeded area increment: {area_incremment:,.2f}) it would exceed the remaining available area (free area: {fence.get_areas()[1]:,.2f})")
+        print(f"Fence animal occupied area {animal.fence.get_areas()[0]}")
+
+        print(f"Fence animal free area {animal.fence.get_areas()[1]}")
+
+        if area_incremment > animal.fence.get_areas()[1]:
+            raise RuntimeError(f"Cannot feed {animal.name} (feeded area increment: {area_incremment:,.2f}) it would exceed the remaining available area (free area: {animal.fence.get_areas()[1]:,.2f})")
         
         else:
             try:

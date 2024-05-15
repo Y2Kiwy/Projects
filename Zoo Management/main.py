@@ -13,7 +13,7 @@ except Exception as e:
     print("Error creating animal a2:", e)
 
 try:
-    f1: Fence = Fence(area=1550, temperature=24, habitat="Savana")                                               # It works
+    f1: Fence = Fence(area=1560, temperature=24, habitat="Savana")                                               # It works
 except Exception as e:
     print("Error creating fence f1:", e)
 
@@ -34,7 +34,7 @@ except Exception as e:
     print("Error adding animal a1 to fence f1:", e)
 
 try:
-    z1.feed(a1, f1)                                                                                              # It works
+    z1.feed(a1)                                                                                              # It works
     print(f"Feeded {a1.name}") 
 except Exception as e:
     print("Error feeding animal a1:", e)
@@ -56,6 +56,12 @@ try:
     print(f"Added {a2.name} to fence f2")
 except Exception as e:
     print("Error adding animal a2 to fence f2:", e)
+
+try:
+    z1.feed(a2)                                                                                              # It works
+    print(f"Feeded {a2.name}") 
+except Exception as e:
+    print("Error feeding animal a1:", e)
 
 try:
     f2_clean_time: float = z1.clean(f2)                                                                          # It works
