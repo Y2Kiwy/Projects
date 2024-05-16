@@ -10,7 +10,7 @@ chessboard: list[list[int]] = [[6, 1, 7, 2, 5, 3, 0, 4],
                                [2, 7, 6, 5, 6, 4, 1, 3]]
 
 
-def get_diagonals(matrix: list[list[int]], row: int, col: int) -> tuple:
+def get_diagonals(matrix: list[list[int]], row: int, col: int) -> tuple[list[int]]:
 
     diagonal: list[int] = []
     anti_diagonal: list[int] = []

@@ -24,8 +24,36 @@ chessboard3: list[list[int]] = [[6, 1, 7, 2, 5, 3, 0, 4],
                                 [3, 5, 7, 0, 6, 4, 2, 1],
                                 [4, 7, 5, 0, 3, 2, 5, 0],
                                 [0, 4, 6, 2, 3, 5, 1, 7],
-                                [1, 3, 5, 1, 7, 0, 6, 2],
+                                [1, 3, 9, 1, 7, 0, 6, 2],
                                 [2, 7, 6, 5, 0, 4, 1, 3]]
+
+def get_diagonals(matrix: list[list[int]], row: int, col: int) -> tuple[list[int]]:
+
+    diagonal: list[int] = []
+    anti_diagonal: list[int] = []
+
+    # Calcolo della diagonale
+    if row < col:
+        for r, c in zip(range(0, 8), range(col - row, 8)):
+            diagonal.append(matrix[r][c])
+    else:
+        for r, c in zip(range(row - col, 8), range(0, 8)):
+            diagonal.append(matrix[r][c])
+
+    # Calcolo della anti-diagonale
+    if row + col < 7:
+        start_row = 0
+        start_col = row + col
+    else:
+        start_row = row + col - 7
+        start_col = 7
+
+    while start_row < 8 and start_col >= 0:
+        anti_diagonal.append(matrix[start_row][start_col])
+        start_row += 1
+        start_col -= 1
+
+    return diagonal, anti_diagonal
 
 
 def check_position(chessboard: list[list[int]], row: int, col: int) -> bool:
@@ -45,3 +73,16 @@ def check_position(chessboard: list[list[int]], row: int, col: int) -> bool:
         if chessboard[r][col] == 1:
             print(f"Found queen in position ({r};{col}) while checking columns")
             return False
+        
+    diagonal: list[int] = get_diagonals(chessboard, row, col)[0]
+    anti_diagonal: list[int] = get_diagonals(chessboard, row, col)[1]
+
+    if 1 in diagonal:
+        print(f"Found queen while checking diagonal {diagonal}")
+        return False
+    elif 1 in anti_diagonal:
+        print(f"Found queen in position while checking anti-diagonal {anti_diagonal}")
+        return False
+    
+    return True
+    
