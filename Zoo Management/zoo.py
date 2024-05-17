@@ -183,8 +183,8 @@ class Zoo:
         '''
         print("\nGuardians:\n")
         for guardian in self.guardians:
-            print(f"ZooKeeper(name={guardian.name}, surname={guardian.surname}, id={guardian.id})")
-        print("\nFences:\n")
+            print(f"ZooKeeper(name={guardian.name}, surname={guardian.surname}, id={guardian.id})\n")
+        print("Fences:\n")
         for fence in self.fences:
             print(f"Fence(area={fence.area}, temperature={fence.temperature}, habitat={fence.habitat})")
             print("\nwith animals:\n")

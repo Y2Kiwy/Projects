@@ -1,4 +1,4 @@
-from lib import * 
+from zoo import * 
 
 # Tests ----------------------------------------------------------------------
 
@@ -26,6 +26,11 @@ try:
     z1: ZooKeeper = ZooKeeper(name="Simone", surname="Antonelli", id=8113)
 except Exception as e:
     print("Error creating ZooKeeper z1:", e)
+
+try:
+    z2: ZooKeeper = ZooKeeper(name="Joao", surname="Dal Mas", id=1764)
+except Exception as e:
+    print("Error creating ZooKeeper z2:", e)
 
 try:
     z1.add_animal(a1, f1)
@@ -70,7 +75,7 @@ except Exception as e:
     print("Error cleaning fence f2:", e)
 
 try:
-    zoo1: Zoo = Zoo(name="Bioparco di Roma", address="V.le del Giardino Zoologico", zookeepers=[z1], fences=[f1, f2])
+    zoo1: Zoo = Zoo(name="Bioparco di Roma", address="V.le del Giardino Zoologico", zookeepers=[z1, z2], fences=[f1, f2])
     zoo1.describe_zoo()
 except Exception as e:
     print("Error cleaning fence f2:", e)
