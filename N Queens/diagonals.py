@@ -28,7 +28,7 @@ def get_diagonals(matrix: list[list[int]], row: int, col: int) -> tuple[list[int
 
     return diagonal, anti_diagonal
 
-# 64 Test for each chessboard possible diagonals and anti-diagonals
+# 64 Test for each 8x8 chessboard possible diagonals and anti-diagonals
 # chessboard: list[list[int]] = [[6, 1, 7, 2, 5, 3, 0, 4],
 #                                [3, 2, 5, 4, 6, 7, 0, 1],
 #                                [1, 7, 2, 3, 4, 0, 6, 5],
