@@ -1,37 +1,48 @@
 from lib import *
 import time
 
+# Initialize start position for both animals
 tortoise_position: int = 1
 hare_position: int = 1
 
+# Initialize start stamina for both animals
+tortoise_stamina: int = 1
+hare_stamina: int = 1
+
+# Initialize last position for both animals
 last_tortoise_position: int = tortoise_position
 last_hare_position: int = hare_position
 
+# Define the two weathe cases
 weather_conditions: list[str] = ["sunny", "rain"]
 weather_index: int = 0
 
+# Initialize ticks counter
 tick_counter: int = 0
 
+# Start the race
 print("\nBANG !!!!! AND THEY'RE OFF !!!!!")
-
 while True:
 
+    # Get last position of the animals
     last_tortoise_position: int = tortoise_position
     last_hare_position: int = hare_position
 
-    tortoise_position: int = tortoise_position_calc(tortoise_position, weather_conditions[weather_index])
-    hare_position: int = hare_position_calc(hare_position, weather_conditions[weather_index])
+    # Generate a new move from each animal
+    tortoise_position, tortoise_stamina = tortoise_position_calc(tortoise_position, weather_conditions[weather_index], tortoise_stamina)
+    hare_position, hare_stamina = hare_position_calc(hare_position, weather_conditions[weather_index], hare_stamina)
 
-    tortoise_penalty = -1 if weather_conditions[weather_index] == "rain" else 0
-    hare_penalty = -2 if weather_conditions[weather_index] == "rain" else 0
+    # Print the updated race status
+    show_race(tortoise_position, hare_position, last_tortoise_position, last_hare_position, tortoise_stamina, hare_stamina)
 
-    show_race(tortoise_position, hare_position, last_tortoise_position, last_hare_position, tortoise_penalty, hare_penalty)
-
+    # Check if one of the animal wins the race
     if tortoise_position >= 70 or hare_position >= 70:
         break
 
+    # Slow down the execution time
     time.sleep(0.01)
 
+    # Count the ticks
     tick_counter += 1
 
     # Change weather every 10 ticks
