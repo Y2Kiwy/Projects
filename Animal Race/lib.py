@@ -1,6 +1,6 @@
 from random import randint
 
-def tortoise_position_calc(last_position: int, weather: str, stamina: int) -> tuple[int]:
+def tortoise_position_calc(last_position: int, weather: str, stamina: int) -> tuple[int, int]:
     '''
     Calculate the new position of the tortoise in the race, based on weather and stamina.
 
@@ -45,7 +45,7 @@ def tortoise_position_calc(last_position: int, weather: str, stamina: int) -> tu
     return last_position, stamina
     
 
-def hare_position_calc(last_position: int, weather: str, stamina: int) -> tuple[int]:
+def hare_position_calc(last_position: int, weather: str, stamina: int) -> tuple[int, int]:
     '''
     Calculate the new position of the hare in the race, based on weather and stamina.
 
