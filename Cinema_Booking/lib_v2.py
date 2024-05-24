@@ -1,4 +1,4 @@
-'''This version add the functionality to distinguish seats for each film of the same auditorium'''
+'''This version add the functionality to have multiple films for each auditorium and distinguish seats for each film'''
 
 class Film:
     def __init__(self, title: str, runtime: int) -> None:
