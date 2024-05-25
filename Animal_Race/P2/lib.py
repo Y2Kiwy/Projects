@@ -3,10 +3,10 @@ import time
 
 class Animal:
     def __init__(self, name: str, position: int = 1, stamina: int = 100) -> None:
+        # Initialize the animal with a name, position, and stamina
         self.name = name
         self.position = position
         self.stamina = stamina
-        
 
     def make_move(self) -> int:
         '''
@@ -19,18 +19,18 @@ class Animal:
             - move (int): The integer that represents how many squares the animal moves.
         '''
 
+        # Generate a random number between 1 and 10
         casual_num: int = randint(1, 10)
 
         if self.name.lower() == "tortoise":
-
-            # Create new dict that stores the range for casual number and the realtive move and stamina changes
-            tortoise_possible_moves: dict[list[int], tuple[int]] = {
+            # Dictionary to store the range for casual number and the corresponding move and stamina changes for tortoise
+            tortoise_possible_moves: dict[range, tuple[int, int]] = {
                 range(1, 6): (+3, -5),
                 range(6, 8): (-6, -10),
                 range(8, 11): (+1, -3)
             }
 
-            # Search the correct move and stamina
+            # Search the correct move and stamina for tortoise
             for key_range in tortoise_possible_moves.keys():
                 if casual_num in key_range:
                     move_value: int = tortoise_possible_moves[key_range][0]
@@ -40,12 +40,11 @@ class Animal:
                         self.stamina -= needed_abs_stamina
                         self.position = max(1, self.position + move_value)
                     else:
-                        self.stamina += min(100, self.stamina + 10)
+                        self.stamina = min(100, self.stamina + 10)
 
         elif self.name.lower() == "hare":
-
-            # Create new dict that stores the range for casual number and the realtive move and stamina changes
-            hare_possible_moves: dict[list[int], tuple[int]] = {
+            # Dictionary to store the range for casual number and the corresponding move and stamina changes for hare
+            hare_possible_moves: dict[range, tuple[int, int]] = {
                 range(1, 3): (0, +10),
                 range(3, 5): (+9, -15),
                 range(5, 6): (-12, -20),
@@ -53,7 +52,7 @@ class Animal:
                 range(9, 11): (-2, -8)
             }
 
-            # Search the correct move and stamina
+            # Search the correct move and stamina for hare
             for key_range in hare_possible_moves.keys():
                 if casual_num in key_range:
                     move_value: int = hare_possible_moves[key_range][0]
@@ -63,51 +62,61 @@ class Animal:
                         self.stamina -= needed_abs_stamina
                         self.position = max(1, self.position + move_value)
                     else:
-                        self.stamina += min(100, self.stamina + 10)
-                
+                        self.stamina = min(100, self.stamina + 10)
 
-# Fix this function
 def show_race(tortoise: Animal, hare: Animal) -> None:
+    '''
+    Display the race between the tortoise and the hare.
 
-    print() # Formatting
-    
-    print("BANG !!!!! AND THEY'RE OFF !!!!!")
+    Args:
+        tortoise (Animal): The tortoise object.
+        hare (Animal): The hare object.
+
+    Returns:
+        None
+    '''
+
+    # Initialize a loop counter
+    moves_counter: int = 0
+
+    print("\nBANG !!!!! AND THEY'RE OFF !!!!!\n")
 
     while True:
+        # Create the race track with 70 positions
         race: list[str] = ['_'] * 70
 
+        # Move the animals
         tortoise.make_move()
         hare.make_move()
 
-        # Aggiorna le posizioni degli animali sulla pista
+        # Update the positions of the animals on the track
         if tortoise.position == hare.position:
             race[min(69, tortoise.position)] = 'OUCH!!!'
         else:
             race[min(69, tortoise.position)] = 'T'
             race[min(69, hare.position)] = 'H'
 
-        # Costruisci la riga di gara
-        race_line = "".join(race)
+        # Print the race line in the same line
+        print("\r" + "".join(race), end='', flush=True)
 
-        # Cancella la riga precedente e scrivi la nuova riga
-        print("\r" + race_line, end='', flush=True)
-
-        # Verifica se uno degli animali ha vinto
+        # Check if one of the animals has won
         if tortoise.position >= 70:
-            print(" -> TORTOISE WINS! || VAY!!!")
+            print(f" -> in {moves_counter} moves TORTOISE WINS! || VAY!!!")
             break
         elif hare.position >= 70:
-            print(" -> HARE WINS || YUCH!!!")
+            print(f" -> in {moves_counter} moves HARE WINS || YUCH!!!")
             break
 
-        # Aspetta per un breve periodo prima di aggiornare la gara
-        time.sleep(0.05)
+        # Count each loop
+        moves_counter += 1
 
-
+        # Wait for a short period before updating the race
+        time.sleep(0.025)
 
 if __name__ == "__main__":
-
+    # Create the tortoise and hare objects
     tortoise: Animal = Animal("tortoise", 1, 100)
     hare: Animal = Animal("hare", 1, 100)
 
+    # Start the race
     show_race(tortoise, hare)
