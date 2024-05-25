@@ -64,13 +64,14 @@ class Animal:
                     else:
                         self.stamina = min(100, self.stamina + 10)
 
-def show_race(tortoise: Animal, hare: Animal) -> None:
+def show_race(tortoise: Animal, hare: Animal, lenght: int) -> None:
     '''
     Display the race between the tortoise and the hare.
 
     Args:
         tortoise (Animal): The tortoise object.
         hare (Animal): The hare object.
+        lenght (int): The lenght of the race
 
     Returns:
         None
@@ -83,7 +84,7 @@ def show_race(tortoise: Animal, hare: Animal) -> None:
 
     while True:
         # Create the race track with 70 positions
-        race: list[str] = ['_'] * 70
+        race: list[str] = ['_'] * lenght
 
         # Move the animals
         tortoise.make_move()
@@ -91,19 +92,19 @@ def show_race(tortoise: Animal, hare: Animal) -> None:
 
         # Update the positions of the animals on the track
         if tortoise.position == hare.position:
-            race[min(69, tortoise.position)] = 'OUCH!!!'
+            race[min(lenght - 1, tortoise.position)] = 'OUCH!!!'
         else:
-            race[min(69, tortoise.position)] = 'T'
-            race[min(69, hare.position)] = 'H'
+            race[min(lenght - 1, tortoise.position)] = 'T'
+            race[min(lenght - 1, hare.position)] = 'H'
 
         # Print the race line in the same line
         print("\r" + "".join(race), end='', flush=True)
 
         # Check if one of the animals has won
-        if tortoise.position >= 70:
+        if tortoise.position >= lenght:
             print(f" -> in {moves_counter} moves TORTOISE WINS! || VAY!!!")
             break
-        elif hare.position >= 70:
+        elif hare.position >= lenght:
             print(f" -> in {moves_counter} moves HARE WINS || YUCH!!!")
             break
 
@@ -119,4 +120,4 @@ if __name__ == "__main__":
     hare: Animal = Animal("hare", 1, 100)
 
     # Start the race
-    show_race(tortoise, hare)
+    show_race(tortoise, hare, 70)
