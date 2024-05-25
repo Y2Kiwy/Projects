@@ -66,6 +66,7 @@ class Animal:
                         self.stamina += min(100, self.stamina + 10)
                 
 
+# Fix this function
 def show_race(tortoise: Animal, hare: Animal) -> None:
 
     print() # Formatting
@@ -93,10 +94,10 @@ def show_race(tortoise: Animal, hare: Animal) -> None:
 
         # Verifica se uno degli animali ha vinto
         if tortoise.position >= 70:
-            print("\nTORTOISE WINS! || VAY!!!")
+            print(" TORTOISE WINS! || VAY!!!")
             break
         elif hare.position >= 70:
-            print("\nHARE WINS || YUCH!!!")
+            print(" HARE WINS || YUCH!!!")
             break
 
         # Aspetta per un breve periodo prima di aggiornare la gara
